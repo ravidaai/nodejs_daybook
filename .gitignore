@@ -47,4 +47,8 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+*.env
+readme.md
 
+src.version.1.zip
+src.version.2.zip
