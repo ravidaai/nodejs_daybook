@@ -4,6 +4,7 @@ const CompanyModel = require("../Model/CompanyModel");
 const InvoiceCategoryModel = require("../Model/InvoiceCategoryModel");
 const InvoiceModel = require("../Model/InvoiceModel");
 const createError = require("http-errors");
+const { perPage } = require("../config/index");
 class dbHelper {
   constructor(...args) {
     this.args = args;
@@ -67,12 +68,52 @@ class dbHelper {
 }
 
 class ResponseHelper {
-  constructor () {
-    
-  }
+  constructor() {}
   Success(msg, data) {
-    if(data) return {msg:msg, data: data}
-    return {msg:msg}
+    if (data) return { msg: msg, data: data };
+    return { msg: msg };
+  }
+}
+
+class PaginationHelper {
+  constructor() {}
+
+
+  async create(model, payload) {
+    //?page=1&limit=2
+    const page = parseInt(payload.page)?parseInt(payload.page):1;
+    const limit = parseInt(payload.limit)?parseInt(payload.limit):parseInt(perPage);
+    
+
+    // console.log("page",page)
+    // console.log("limit",limit)
+    //console.log("perpage",perPage)
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const results = {};
+
+    if (endIndex < (await model.countDocuments(payload.q ?? null).exec())) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+
+    results.results = await model
+      .find(payload.q ?? null)
+      .skip(startIndex)
+      .limit(limit)
+      .exec();
+    return results;
   }
 }
 
@@ -80,7 +121,7 @@ class ResponseHelper {
 // module.exports.ResponseHelper = ResponseHelper;
 
 //OR
-module.exports={dbHelper, ResponseHelper}
+module.exports = { dbHelper, ResponseHelper, PaginationHelper };
 
 //module.exports = dbHelper;
 

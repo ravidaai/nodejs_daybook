@@ -36,7 +36,7 @@ module.exports = {
     mongoose.Promise = global.Promise;
   },
 
-  cors: async (req, res, next) => {
+  cors: (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
       "Access-Control-Allow-Headers",
@@ -49,6 +49,7 @@ module.exports = {
       );
       return res.status(200).json({});
     }
+
     next();
   },
 };

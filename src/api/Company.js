@@ -4,10 +4,16 @@ const companyController = require('../Controller/CompanyController');
 //const verifyToken = require('../Middleware/verifyToken');
 const {verifyAccessToken} = require('../Helper/jwtHelper');
 const Request = require('../Middleware/Request/CompanyRequest');
+
 /**
  * GET request to /company
  */
 router.get('/', [verifyAccessToken, Request.index],  companyController.index);
+
+/**
+ * GET request to /dropdown
+ */
+ router.get('/dropdown', [verifyAccessToken],  companyController.dropdown);
 
 /**
  * GET request to /company/:id

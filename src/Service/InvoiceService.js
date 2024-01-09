@@ -16,7 +16,7 @@ module.exports = {
       cash_out: req.body.cash_out,
       company: req.body.company_id,
       category: req.body.category_id,
-      user: req.auth._id,
+      user: req.payload.aud,
     });
 
     result = await invoice.save();
@@ -27,7 +27,7 @@ module.exports = {
     const result = await InvoiceModel.updateOne(
       {
         _id: req.params.invoice_id,
-        user: mongoose.Types.ObjectId(req.auth._id),
+        user: mongoose.Types.ObjectId(req.payload.aud),
         company: mongoose.Types.ObjectId(req.body.company_id),
       },
       {
@@ -48,14 +48,14 @@ module.exports = {
   Show: async (req, res) => {
     const result = await InvoiceModel.findOne({
       _id: req.params.invoice_id,
-      user: mongoose.Types.ObjectId(req.auth._id),
+      user: mongoose.Types.ObjectId(req.payload.aud),
     });
     return result;
   },
   Delete: async (req, res) => {
     const result = await InvoiceModel.deleteOne({
       _id: req.params.invoice_id,
-      user: mongoose.Types.ObjectId(req.auth._id),
+      user: mongoose.Types.ObjectId(rreq.payload.aud),
       company: mongoose.Types.ObjectId(req.body.company_id),
     });
     return result;

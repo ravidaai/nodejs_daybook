@@ -41,6 +41,7 @@ module.exports = {
       });
 
       if(!await helper.isCategoryExistWhere()) throw createError.NotFound(`Category not found.`);
+      next();
     }catch(error){
         next(error);
     }
@@ -53,6 +54,7 @@ module.exports = {
       });
 
       if(!await helper.isCategoryExistWhere()) throw createError.NotFound(`Category not found.`);
+      next();
     }catch(error){
         next(error);
     }

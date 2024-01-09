@@ -7,7 +7,7 @@ module.exports = {
       const result = await CompanyService.Delete(req, res, next);
       res
         .status(200)
-        .json(Message.Success("Company", result));
+        .json(Message.Success("Company deleted successfully.", result));
     } catch (error) {
       next(error);
     }
@@ -17,7 +17,7 @@ module.exports = {
       const result = await CompanyService.Update(req, res, next);
       res
         .status(200)
-        .json(Message.Success("Company", result));
+        .json(Message.Success("Company updated successfully.", result));
     } catch (error) {
       next(error);
     }
@@ -28,7 +28,7 @@ module.exports = {
       const result = await CompanyService.Create(req, res, next);
       res
         .status(200)
-        .json(Message.Success("Company", result));
+        .json(Message.Success("Company added successfully.", result));
     } catch (error) {
       next(error);
     }
@@ -36,7 +36,7 @@ module.exports = {
   show: async (req, res, next) => {
     try {
       const result = await CompanyService.Show(req, res, next);
-      res.status(200).json(Message.Success("Company", result));
+      res.status(200).json(Message.Success("Company details", result));
     } catch (error) {
       next(error);
     }
@@ -44,8 +44,15 @@ module.exports = {
   index: async (req, res, next) => {
     try {
       const result = await CompanyService.Index(req, res, next);
-
-      res.status(200).json(Message.Success("Company", result));
+      res.status(200).json(Message.Success("Company list", result));
+    } catch (error) {
+      next(error);
+    }
+  },
+  dropdown: async (req, res, next) => {
+    try {
+      const result = await CompanyService.dropdown(req, res, next);
+      res.status(200).json(Message.Success("Company dropdown", result));
     } catch (error) {
       next(error);
     }

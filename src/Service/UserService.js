@@ -27,8 +27,9 @@ module.exports = {
     const user = await UserModel.findOne({ email: req.body.email });
     const access_token = await signAccessToken(user._id);
     const refresh_token = await signRefreshToken(user._id);
+    const user_name = await user.name;
     //res.header("auth-token", access_token);
-    return {access_token, refresh_token};
+    return {access_token, refresh_token, user_name};
   },
  
   RefreshToken: async (req, res, next) => {
@@ -51,7 +52,7 @@ module.exports = {
           console.log(err.message)
           throw createError.InternalServerError()
         }
-        console.log(val)
+        //console.log(val)
         return
       })
   },

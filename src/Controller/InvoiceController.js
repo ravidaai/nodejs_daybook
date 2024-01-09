@@ -2,7 +2,7 @@ const InvoiceService = require("../Service/InvoiceService");
 const {ResponseHelper} = require("../Helper/Helper");
 const Message = new ResponseHelper();
 module.exports = {
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     try {
       const result = await InvoiceService.Delete(req, res);
       res.status(200).json(Message.Success(`Invoice successfully deleted.`, result));
@@ -10,7 +10,7 @@ module.exports = {
       next(error);
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     try {
       const result = await InvoiceService.Update(req, res);
       res.status(200).json(Message.Success(`Invoice successfully updated.`, result));
@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     try {
       const result = await InvoiceService.Create(req, res);
       res.status(200).json(Message.Success(`Invoice successfully created.`, result));
@@ -27,7 +27,7 @@ module.exports = {
       next(error);
     }
   },
-  show: async (req, res) => {
+  show: async (req, res, next) => {
     try {
       
       const result = await InvoiceService.Show(req, res);
@@ -36,7 +36,7 @@ module.exports = {
       next(error);
     }
   },
-  index: async (req, res) => {
+  index: async (req, res, next) => {
     try {
       const result = await InvoiceService.Index(req, res);
       res.status(200).json(Message.Success(`Invoice list.`, result));

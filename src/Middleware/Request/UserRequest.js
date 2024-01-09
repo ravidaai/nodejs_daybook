@@ -7,7 +7,7 @@ module.exports = {
     try {
       
       const schema = Joi.object({
-        name: Joi.string().min(6).max(100).required(),
+        name: Joi.string().min(2).max(100).required(),
         email: Joi.string().min(6).max(50).required().lowercase().email(),
         password: Joi.string().min(2).max(255).required(),
       });

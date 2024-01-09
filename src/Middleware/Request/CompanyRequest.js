@@ -9,7 +9,7 @@ module.exports = {
   create: async (req, res, next) => {
     try {
       const schema = Joi.object({
-        company_name: Joi.string().min(6).max(100).required(),
+        company_name: Joi.string().min(6).max(100).required().label("Company name"),
       });
 
       const result = await schema.validateAsync(req.body);

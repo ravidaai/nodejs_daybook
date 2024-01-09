@@ -14,7 +14,7 @@ module.exports = {
   login: async (req, res, next) => {
     try {
       const access_token = await UserService.Login(req, res);
-      res.status(200).json(IsError(false, `Token`, access_token));
+      res.status(200).json(Message.Success(`Token`, access_token));
     } catch (error) {
       next(error);
     }

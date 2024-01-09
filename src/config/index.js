@@ -9,5 +9,6 @@ module.exports = {
   databaseName:process.env.DB_NAME,
   redisHost:process.env.REDIS_HOST,
   redisPort:process.env.REDIS_PORT,
+  perPage: process.env.PER_PAGE,
   
 };
